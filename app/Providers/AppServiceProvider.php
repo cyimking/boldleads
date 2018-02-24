@@ -2,6 +2,8 @@
 
 namespace BoldLeads\Providers;
 
+use BoldLeads\Repositories\Listing\EloquentListing;
+use BoldLeads\Repositories\Listing\ListingRepository;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +25,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton(ListingRepository::class, EloquentListing::class);
     }
 }

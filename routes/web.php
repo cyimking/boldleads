@@ -11,10 +11,17 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+/**
+ * Home Route
+ */
+Route::get('/', 'ListingController@create')->name('home');
 
+/**
+ * Authentication Routes
+ */
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+/**
+ * Listing Routes
+ */
+Route::resource('listings', 'ListingController');

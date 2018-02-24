@@ -15,12 +15,12 @@ class CreateListingsTable extends Migration
     {
         Schema::create('listings', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('first_name');
-            $table->string('last_name');
-            $table->string('email')->unique();
-            $table->string('phone_number');
-            $table->string('address');
-            $table->smallInteger('home_square_footage');
+            $table->string('first_name')->nullable();;
+            $table->string('last_name')->nullable();
+            $table->string('email')->unique();      // Only one email address per lead
+            $table->string('phone_number')->nullable();
+            $table->string('address')->nullable();
+            $table->smallInteger('home_square_footage')->nullable();
             $table->timestamps();
         });
     }
