@@ -4,7 +4,7 @@ namespace BoldLeads;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Listing extends Model
+class Lead extends Model
 {
     /**
      * The attributes that are mass assignable.

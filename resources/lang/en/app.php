@@ -8,10 +8,10 @@ return [
     |--------------------------------------------------------------------------
     |
     | The following language lines are used during the entire application for
-    | basic CRUD {Listing} functions.
+    | basic CRUD {Lead} functions.
     |
     */
 
-    'listing_created' => 'Thank you for submitting your form! We will be in contact with you shortly.',
-
+    'lead_created' => 'Thank you for submitting your form! We will be in contact with you shortly.',
+    // TODO - Add remaining language lines
 ];

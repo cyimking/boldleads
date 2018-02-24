@@ -4,14 +4,14 @@ use Faker\Generator as Faker;
 
 /*
 |--------------------------------------------------------------------------
-| Listing Factory
+| Lead Factory
 |--------------------------------------------------------------------------
 |
-| Generate test data for listings.
+| Generate test data for leads.
 |
 */
 
-$factory->define(BoldLeads\Listing::class, function (Faker $faker) {
+$factory->define(BoldLeads\Lead::class, function (Faker $faker) {
     return [
         'first_name' => $faker->firstName,
         'last_name' => $faker->lastName,

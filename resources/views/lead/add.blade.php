@@ -45,7 +45,7 @@
                         Check Availability in Your Area!
                     </div>
                     <div class="card-body">
-                        {!! Form::open(['action' => ['ListingController@store']])!!}
+                        {!! Form::open(['action' => ['LeadController@store']])!!}
 
                         <div class="form-group">
                             {{ Form::label('first_name', null, ['class' => 'control-label']) }}

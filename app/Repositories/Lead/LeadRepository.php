@@ -1,8 +1,8 @@
 <?php
 
-namespace BoldLeads\Repositories\Listing;
+namespace BoldLeads\Repositories\Lead;
 
-interface ListingRepository
+interface LeadRepository
 {
     /**
      * @param $perPage
@@ -11,10 +11,10 @@ interface ListingRepository
     public function paginate($perPage);
 
     /**
-     * @param $listingID
+     * @param $leadID
      * @return mixed
      */
-    public function find($listingID);
+    public function find($leadID);
 
     /**
      * @param array $data
@@ -23,15 +23,15 @@ interface ListingRepository
     public function create(array $data);
 
     /**
-     * @param $listingID
+     * @param $leadID
      * @param array $data
      * @return mixed
      */
-    public function update($listingID, array $data);
+    public function update($leadID, array $data);
 
     /**
-     * @param $listingID
+     * @param $leadID
      * @return mixed
      */
-    public function delete($listingID);
+    public function delete($leadID);
 }

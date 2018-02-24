@@ -1,10 +1,10 @@
 <?php
 
-namespace BoldLeads\Http\Requests\Listing;
+namespace BoldLeads\Http\Requests\Lead;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateListing extends FormRequest
+class CreateLead extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,7 +27,7 @@ class CreateListing extends FormRequest
         return [
             'first_name' => 'nullable|min:3|max:255',
             'last_name' => 'nullable|min:3|max:255',
-            'email' => 'required|email|unique:listings',
+            'email' => 'required|email|unique:leads',
             'phone_number' => 'nullable|',
             'address' => 'nullable|min:3',
             'home_square_footage' => 'nullable|integer'

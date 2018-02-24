@@ -47,7 +47,7 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         @if (Auth::check())
-                            <li><a class="nav-link" href="{{ route('listings.index') }}">Dashboard</a></li>
+                            <li><a class="nav-link" href="{{ route('leads.index') }}">Dashboard</a></li>
                         @endif
                     </ul>
 

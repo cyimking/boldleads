@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateListingsTable extends Migration
+class CreateLeadsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateListingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('listings', function (Blueprint $table) {
+        Schema::create('leads', function (Blueprint $table) {
             $table->increments('id');
             $table->string('first_name')->nullable();;
             $table->string('last_name')->nullable();
@@ -32,6 +32,6 @@ class CreateListingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('listings');
+        Schema::dropIfExists('leads');
     }
 }

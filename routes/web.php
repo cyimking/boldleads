@@ -14,7 +14,7 @@
 /**
  * Home Route
  */
-Route::get('/', 'ListingController@create')->name('home');
+Route::get('/', 'LeadController@create')->name('home');
 
 /**
  * Authentication Routes
@@ -22,6 +22,6 @@ Route::get('/', 'ListingController@create')->name('home');
 Auth::routes();
 
 /**
- * Listing Routes
+ * Lead Routes
  */
-Route::resource('listings', 'ListingController');
+Route::resource('leads', 'LeadController');
