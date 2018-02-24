@@ -2,12 +2,12 @@
 
 namespace BoldLeads\Http\Controllers;
 
-use BoldLeads\Http\Requests\Lead\CreateLead;
+use BoldLeads\Http\Requests\Leads\CreateLead;
 use BoldLeads\Lead;
 use BoldLeads\Repositories\Lead\LeadRepository;
 use Illuminate\Http\Request;
 
-class LeadController extends Controller
+class LeadsController extends Controller
 {
     /**
      * @var LeadRepository
@@ -21,8 +21,9 @@ class LeadController extends Controller
      */
     public function __construct(LeadRepository $leads)
     {
-        // Set middleware
-        $this->middleware('auth', ['except' => 'create']);
+        // We only want the guest to be able to view the form and
+        // store the lead information
+        $this->middleware('auth')->except(['create', 'store']);
         $this->leads = $leads;
     }
 
@@ -73,6 +74,10 @@ class LeadController extends Controller
     {
         return view('lead.view', compact('lead'));
     }
+
+    //---------------------------------------------------------------
+    // TODO - Implement the below resources via Views
+    //---------------------------------------------------------------
 
     /**
      * Show the form for editing the specified resource.

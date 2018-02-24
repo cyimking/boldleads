@@ -1,6 +1,6 @@
 <?php
 
-namespace BoldLeads\Http\Requests\Lead;
+namespace BoldLeads\Http\Requests\Leads;
 
 use Illuminate\Foundation\Http\FormRequest;
 

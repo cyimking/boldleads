@@ -4,7 +4,7 @@ namespace BoldLeads\Repositories\Lead;
 
 use BoldLeads\Lead;
 
-class EloquentLead implements leadRepository
+class EloquentLead implements LeadRepository
 {
 
     /**
@@ -12,8 +12,8 @@ class EloquentLead implements leadRepository
      */
     public function paginate($perPage)
     {
-        return (new Lead)->latest()
-            ->simplePaginate($perPage);
+        return (new Lead)->orderBy('id', 'desc')
+            ->paginate($perPage);
     }
 
     /**
