@@ -21,6 +21,8 @@ class ListingController extends Controller
      */
     public function __construct(ListingRepository $listings)
     {
+        // Set middleware
+        $this->middleware('auth', ['except' => 'create']);
         $this->listings = $listings;
     }
 
