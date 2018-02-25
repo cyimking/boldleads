@@ -2,6 +2,8 @@
 
 namespace BoldLeads\Providers;
 
+use BoldLeads\Repositories\Lead\EloquentLead;
+use BoldLeads\Repositories\Lead\LeadRepository;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +25,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton(LeadRepository::class, EloquentLead::class);
     }
 }

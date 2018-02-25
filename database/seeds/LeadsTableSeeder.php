@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class ListingsTableSeeder extends Seeder
+class LeadsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,7 +11,7 @@ class ListingsTableSeeder extends Seeder
      */
     public function run()
     {
-        // Generate 10 listings
-        factory(BoldLeads\Listing::class, 10)->create();
+        // Generate 10 leads
+        factory(BoldLeads\Lead::class, 10)->create();
     }
 }

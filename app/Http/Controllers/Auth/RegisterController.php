@@ -27,7 +27,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/leads';
 
     /**
      * Create a new controller instance.
@@ -68,4 +68,10 @@ class RegisterController extends Controller
             'password' => bcrypt($data['password']),
         ]);
     }
+
+    /**
+     * TODO - Disable registrations.
+     * Users = Real Estate Agent... and we do not want 'anyone' registering
+     * without permissions.
+     */
 }

@@ -1,0 +1,20 @@
+# Reference: https://www.fastfwd.com/continuous-integration-laravel-travis-ci/
+language: php
+
+php:
+  - 7.1
+
+before_script:
+  - cp .env.travis .env
+  - pear install pear/PHP_CodeSniffer
+  - phpenv rehash
+  - composer self-update
+  - composer install --no-interaction
+  - php artisan key:generate
+  - php artisan migrate:refresh --seed
+
+before_install:
+  - mysql -e 'create database forge_test;'
+
+script:
+  - vendor/bin/phpunit --coverage-text
