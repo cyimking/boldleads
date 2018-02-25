@@ -1,22 +1,42 @@
+// app.js
 
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
+import Vue from 'vue';
 
-require('./bootstrap');
+import VueRouter from 'vue-router';
+Vue.use(VueRouter);
 
-window.Vue = require('vue');
+import VueAxious from 'vue-axios';
+import axios from 'axios';
+Vue.use(VueAxious, axios);
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+import App from './App.vue';
+import CreateLead from './components/lead/Create.vue';
+import DisplayLead from './components/lead/View.vue';
+import DisplayLeadListing from './components/lead/List.vue';
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
+const routes = [
+    {
+        path: '/',
+        name: 'CreateLead',
+        component: CreateLead
+    },
+    {
+        path: '/leads',
+        name: 'DisplayLeadListing',
+        component: DisplayLeadListing
+    },
+    {
+        path: '/leads/:id',
+        name: 'DisplayLead',
+        component: DisplayLead
+    }
+];
 
-const app = new Vue({
-    el: '#app'
+Vue.component('pagination', require('laravel-vue-pagination'));
+
+const router = new VueRouter({
+    mode: 'history',
+    routes: routes
 });
+
+new Vue(Vue.util.extend({ router }, App)).$mount('#app');

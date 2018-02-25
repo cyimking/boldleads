@@ -5,7 +5,11 @@ namespace BoldLeads\Http\Controllers;
 use BoldLeads\Http\Requests\Leads\CreateLead;
 use BoldLeads\Lead;
 use BoldLeads\Repositories\Lead\LeadRepository;
+use BoldLeads\Transformers\LeadTransformer;
 use Illuminate\Http\Request;
+use League\Fractal\Pagination\IlluminatePaginatorAdapter;
+use League\Fractal\Serializer\JsonApiSerializer;
+use Spatie\Fractal\Fractal;
 
 class LeadsController extends Controller
 {
@@ -30,13 +34,16 @@ class LeadsController extends Controller
     /**
      * Display a lead of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\Response|string
      */
-    public function index()
+    public function index(Request $request)
     {
         $leads = $this->leads->paginate(10);
 
-        return view('lead.list', compact('leads'));
+        return $request->isJson() ?
+            response()->json($leads)
+            : view('layouts.app');
     }
 
     /**
@@ -46,7 +53,7 @@ class LeadsController extends Controller
      */
     public function create()
     {
-        return view('lead.add');
+        return view('layouts.app');
     }
 
     /**
@@ -60,19 +67,20 @@ class LeadsController extends Controller
         $data = $request->all();
         $lead = $this->leads->create($data);
 
-        return redirect()->route('home')
-            ->withSuccess(trans('app.lead_created'));
+        return response()->json(trans('app.lead_created'), 201);
     }
 
     /**
      * Display the specified resource.
      *
      * @param Lead $lead
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\Response|string
      */
-    public function show(Lead $lead)
+    public function show(Lead $lead, Request $request)
     {
-        return view('lead.view', compact('lead'));
+        return $request->isJson() ?
+            Fractal::create()->item($lead, new LeadTransformer())->toJson() : view('layouts.app');
     }
 
     //---------------------------------------------------------------
@@ -121,4 +129,5 @@ class LeadsController extends Controller
         return redirect()->route('home')
             ->withSuccess(trans('app.lead_deleted'));
     }
+
 }
