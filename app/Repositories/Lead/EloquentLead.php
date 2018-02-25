@@ -12,7 +12,7 @@ class EloquentLead implements LeadRepository
      */
     public function paginate($perPage)
     {
-        return (new Lead)->orderBy('id', 'desc')
+        return (new Lead)->orderBy('first_name', 'asc')
             ->paginate($perPage);
     }
 
