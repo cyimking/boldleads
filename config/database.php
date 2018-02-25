@@ -78,6 +78,20 @@ return [
             'prefix' => '',
         ],
 
+
+        // Reference: https://gist.github.com/AikChun/9b4628d6fce61c63301b9131408b8447
+        'testing' => [
+            'driver'    => 'mysql',
+            'host'      => env('DB_TEST_HOST', 'localhost'),
+            'database'  => env('DB_TEST_DATABASE', 'forge_test'),
+            'username'  => env('DB_TEST_USERNAME', 'forge'),
+            'password'  => env('DB_TEST_PASSWORD', ''),
+            'charset'   => 'utf8',
+            'collation' => 'utf8_unicode_ci',
+            'prefix'    => '',
+            'strict'    => false,
+        ],
+
     ],
 
     /*

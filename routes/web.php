@@ -14,7 +14,7 @@
 /**
  * Home Route
  */
-Route::get('/', 'LeadController@create')->name('home');
+Route::get('/', 'LeadsController@create')->name('home');
 
 /**
  * Authentication Routes
@@ -24,4 +24,4 @@ Auth::routes();
 /**
  * Lead Routes
  */
-Route::resource('leads', 'LeadController');
+Route::resource('leads', 'LeadsController');
