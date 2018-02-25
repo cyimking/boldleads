@@ -32,7 +32,7 @@ class EloquentLeadTest extends TestCase
     {
         // Create 20 leads and paginate 5 per page
         $leads = factory(Lead::class)->times(20)->create();
-        $leads = $leads->sortByDesc('id')->values();
+        $leads = $leads->sortBy('first_name')->values();
 
         // Fetch results
         $results = $this->eloquentRepo->paginate(5)->toArray();
