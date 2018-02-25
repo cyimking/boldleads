@@ -25,4 +25,9 @@ class LeadsControllerTest extends TestCase
      * - view()
      * - redirect()
      */
+
+    public function testCase(): void
+    {
+        $this->assertEquals(0, 0);
+    }
 }

@@ -15,7 +15,7 @@ class LeadsController extends Controller
     private $leads;
 
     /**
-     * leadController constructor.
+     * LeadsController constructor.
      *
      * @param LeadRepository $leads
      */
