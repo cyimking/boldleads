@@ -105,15 +105,14 @@ class LeadsController extends Controller
      *
      * @param  \Illuminate\Http\Request $request
      * @param Lead $lead
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|string
      */
     public function update(Request $request, Lead $lead)
     {
         $data = $request->all();
         $this->leads->update($lead, $data);
 
-        return redirect()->back()
-            ->withSuccess(trans('app.lead_updated'));
+        return Fractal::create()->item($lead, new LeadTransformer())->toJson();
     }
 
     /**

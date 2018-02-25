@@ -52,7 +52,7 @@
 
                             <div class="form-group">
                                 <label for="email" class="control-label">Email Address</label>
-                                <input type="email" class="form-control" id="email" v-model="lead.email" required="required">
+                                <input type="email" class="form-control" id="email" v-model="lead.email" required="required" v-on:change="createLead">
                             </div>
 
                             <div class="form-group">
@@ -88,29 +88,44 @@
         data() {
             return {
                 lead: {},
+                id: {},
                 errors: [],
                 successMessage: {},
                 successfulCall: false,
-                unsuccessfulCall: false
+                unsuccessfulCall: false,
+                inserted: false
             }
         },
 
         methods: {
             createLead()
             {
-                let uri = 'http://127.0.0.1:8000/leads';
-                this.successfulCall = false;
-                this.unsuccessfulCall = false;
-                this.axios
-                    .post(uri, this.lead)
-                    .then((response) => {
-                        this.successMessage = response.data;
-                        this.successfulCall = true;
-                    })
-                    .catch(error => {
-                        this.errors = error.response.data.errors;
-                        this.unsuccessfulCall = true;
-                    });
+                if (this.inserted === true) {
+                    this.updateLead(this.lead.id);
+                } else {
+                    let uri = 'http://127.0.0.1:8000/leads';
+                    this.successfulCall = false;
+                    this.unsuccessfulCall = false;
+                    this.axios
+                        .post(uri, this.lead)
+                        .then((response) => {
+                            this.successMessage = response.data;
+                            this.successfulCall = true;
+                            this.inserted = true;
+
+                            // TODO - Return LEAD && successMessage
+                            // LEAD will return the correct the ID.
+                            // Use this ID to update the LEAD after submitting the form
+                        })
+                        .catch(error => {
+                            this.errors = error.response.data.errors;
+                            this.unsuccessfulCall = true;
+                        });
+                }
+            },
+            updateLead(id)
+            {
+                // TODO - If user entered form already, update the lead instead
             }
         }
     }

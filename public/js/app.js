@@ -1217,10 +1217,12 @@ module.exports = Cancel;
     data: function data() {
         return {
             lead: {},
+            id: {},
             errors: [],
             successMessage: {},
             successfulCall: false,
-            unsuccessfulCall: false
+            unsuccessfulCall: false,
+            inserted: false
         };
     },
 
@@ -1229,16 +1231,28 @@ module.exports = Cancel;
         createLead: function createLead() {
             var _this = this;
 
-            var uri = 'http://127.0.0.1:8000/leads';
-            this.successfulCall = false;
-            this.unsuccessfulCall = false;
-            this.axios.post(uri, this.lead).then(function (response) {
-                _this.successMessage = response.data;
-                _this.successfulCall = true;
-            }).catch(function (error) {
-                _this.errors = error.response.data.errors;
-                _this.unsuccessfulCall = true;
-            });
+            if (this.inserted === true) {
+                this.updateLead(this.lead.id);
+            } else {
+                var uri = 'http://127.0.0.1:8000/leads';
+                this.successfulCall = false;
+                this.unsuccessfulCall = false;
+                this.axios.post(uri, this.lead).then(function (response) {
+                    _this.successMessage = response.data;
+                    _this.successfulCall = true;
+                    _this.inserted = true;
+
+                    // TODO - Return LEAD && successMessage
+                    // LEAD will return the correct the ID.
+                    // Use this ID to update the LEAD after submitting the form
+                }).catch(function (error) {
+                    _this.errors = error.response.data.errors;
+                    _this.unsuccessfulCall = true;
+                });
+            }
+        },
+        updateLead: function updateLead(id) {
+            // TODO - If user entered form already, update the lead instead
         }
     }
 });
@@ -1341,12 +1355,28 @@ module.exports = Cancel;
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["a"] = ({
     data: function data() {
         return {
             leads: [],
-            pagination: {}
+            pagination: {},
+            errors: [],
+            successfulCall: false,
+            unsuccessfulCall: false
         };
     },
 
@@ -1371,7 +1401,10 @@ module.exports = Cancel;
             }).then(function (response) {
                 _this.leads = response.data.data;
                 _this.pagination = response.data;
-                console.log(_this.leads);
+                _this.successfulCall = true;
+            }).catch(function (error) {
+                _this.errors = error.response.data;
+                _this.unsuccessfulCall = true;
             });
         }
     }
@@ -16835,6 +16868,7 @@ var render = function() {
                     attrs: { type: "email", id: "email", required: "required" },
                     domProps: { value: _vm.lead.email },
                     on: {
+                      change: _vm.createLead,
                       input: function($event) {
                         if ($event.target.composing) {
                           return
@@ -17239,44 +17273,87 @@ var render = function() {
     "div",
     [
       _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "table" }, [
-          _c(
-            "table",
-            { staticClass: "table-bordered", staticStyle: { width: "100%" } },
-            [
-              _vm._m(0),
-              _vm._v(" "),
-              _vm._l(_vm.leads, function(lead) {
-                return _c("tr", [
-                  _c("td", [_vm._v(_vm._s(lead.first_name))]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(lead.last_name))]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(lead.email))]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(lead.created_at))]),
-                  _vm._v(" "),
-                  _c(
-                    "td",
-                    [
-                      _c(
-                        "router-link",
-                        {
-                          attrs: {
-                            to: { name: "DisplayLead", params: { id: lead.id } }
-                          }
-                        },
-                        [_vm._v("View")]
-                      )
-                    ],
-                    1
+        _c(
+          "div",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.unsuccessfulCall,
+                expression: "unsuccessfulCall"
+              }
+            ],
+            staticClass: "alert alert-danger alert-dismissible fade show mt-5",
+            staticStyle: { width: "100%" },
+            attrs: { role: "alert" }
+          },
+          [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("b", [_vm._v("Please correct the following error(s):")]),
+            _vm._v(" "),
+            _c(
+              "ul",
+              _vm._l(_vm.errors, function(error) {
+                return _c("li", [
+                  _vm._v(
+                    "\n                    " +
+                      _vm._s(error) +
+                      "\n                "
                   )
                 ])
               })
-            ],
-            2
-          )
-        ])
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _vm.successfulCall
+          ? _c("div", { staticClass: "table" }, [
+              _c(
+                "table",
+                {
+                  staticClass: "table-bordered",
+                  staticStyle: { width: "100%" }
+                },
+                [
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _vm._l(_vm.leads, function(lead) {
+                    return _c("tr", [
+                      _c("td", [_vm._v(_vm._s(lead.first_name))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(lead.last_name))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(lead.email))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(lead.created_at))]),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        [
+                          _c(
+                            "router-link",
+                            {
+                              attrs: {
+                                to: {
+                                  name: "DisplayLead",
+                                  params: { id: lead.id }
+                                }
+                              }
+                            },
+                            [_vm._v("View")]
+                          )
+                        ],
+                        1
+                      )
+                    ])
+                  })
+                ],
+                2
+              )
+            ])
+          : _vm._e()
       ]),
       _vm._v(" "),
       _c("pagination", {
@@ -17288,6 +17365,23 @@ var render = function() {
   )
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "alert",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

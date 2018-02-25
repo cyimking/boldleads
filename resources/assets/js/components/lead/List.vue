@@ -1,7 +1,20 @@
 <template>
     <div>
         <div class="row">
-            <div class="table">
+
+            <div v-show="unsuccessfulCall" class="alert alert-danger alert-dismissible fade show mt-5" style="width: 100%" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <b>Please correct the following error(s):</b>
+                <ul>
+                    <li v-for="error in errors">
+                        {{ error }}
+                    </li>
+                </ul>
+            </div>
+
+            <div v-if="successfulCall" class="table">
                 <table class="table-bordered" style="width: 100%">
                     <tr>
                         <th>First Name</th>
@@ -32,7 +45,10 @@
         data() {
             return {
                 leads: [],
-                pagination: {}
+                pagination: {},
+                errors: [],
+                successfulCall: false,
+                unsuccessfulCall: false
             }
         },
 
@@ -56,7 +72,10 @@
                 }).then((response) => {
                    this.leads = response.data.data;
                    this.pagination = response.data;
-                   console.log(this.leads);
+                   this.successfulCall = true;
+                }).catch((error) => {
+                    this.errors = error.response.data;
+                    this.unsuccessfulCall = true;
                 });
             }
         }

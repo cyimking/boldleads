@@ -12,6 +12,7 @@ return [
     |
     */
 
-    'lead_created' => 'Thank you for submitting your form! We will be in contact with you shortly.',
+    'lead_created' => 'Saving form...',
+    'lead_updated' => 'Thank you for submitting your form! We will be in contact with you shortly.'
     // TODO - Add remaining language lines
 ];
