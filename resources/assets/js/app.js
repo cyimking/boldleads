@@ -1,7 +1,6 @@
 // app.js
 
 import Vue from 'vue';
-
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 
@@ -13,6 +12,12 @@ import App from './App.vue';
 import CreateLead from './components/lead/Create.vue';
 import DisplayLead from './components/lead/View.vue';
 import DisplayLeadListing from './components/lead/List.vue';
+import Login from './components/auth/Login.vue';
+
+Vue.component('pagination', require('laravel-vue-pagination'));
+// TODO - Vue.component('register', require('./components/auth/Register.Vue'));
+
+Vue.prototype.$bus = new Vue();
 
 const routes = [
     {
@@ -29,10 +34,13 @@ const routes = [
         path: '/leads/:id',
         name: 'DisplayLead',
         component: DisplayLead
+    },
+    {
+        path: '/login',
+        name: 'Login',
+        component: Login
     }
 ];
-
-Vue.component('pagination', require('laravel-vue-pagination'));
 
 const router = new VueRouter({
     mode: 'history',

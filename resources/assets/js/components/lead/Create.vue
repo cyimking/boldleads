@@ -51,8 +51,8 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="email" class="control-label">Email Address</label>
-                                <input type="email" class="form-control" id="email" v-model="lead.email" required="required" v-on:change="createLead">
+                                <label for="email1" class="control-label">Email Address</label>
+                                <input type="email" class="form-control" id="email1" v-model="lead.email" required="required" v-on:change="createLead">
                             </div>
 
                             <div class="form-group">

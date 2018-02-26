@@ -74,6 +74,7 @@
                    this.pagination = response.data;
                    this.successfulCall = true;
                 }).catch((error) => {
+                    this.$bus.$emit('logged', false);
                     this.errors = error.response.data;
                     this.unsuccessfulCall = true;
                 });

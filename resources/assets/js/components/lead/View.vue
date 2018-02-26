@@ -51,6 +51,8 @@
                     contentType: 'application/json; charset=utf-8'
                 }).then((response) => {
                    this.lead = response.data.data;
+                }).catch((error) => {
+                    this.$bus.$emit('logged', false);
                 });
             }
         }
