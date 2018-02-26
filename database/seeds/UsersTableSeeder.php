@@ -12,11 +12,13 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
+        $password = Hash::make('Test123');
+
         // Create default agent
         User::create([
             'name' => 'Lamar Nelson',
             'email' => 'lamar@boldleads.custom',
-            'password' => 'Test123'
+            'password' => $password
         ]);
     }
 }
