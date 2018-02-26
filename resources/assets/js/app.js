@@ -14,8 +14,11 @@ import DisplayLead from './components/lead/View.vue';
 import DisplayLeadListing from './components/lead/List.vue';
 import Login from './components/auth/Login.vue';
 
+// Pagination component
 Vue.component('pagination', require('laravel-vue-pagination'));
-// TODO - Vue.component('register', require('./components/auth/Register.Vue'));
+
+// Require bootstrap
+require('./bootstrap');
 
 Vue.prototype.$bus = new Vue();
 

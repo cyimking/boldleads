@@ -52,7 +52,8 @@
 
                             <div class="form-group">
                                 <label for="email1" class="control-label">Email Address</label>
-                                <input type="email" class="form-control" id="email1" v-model="lead.email" required="required" v-on:change="createLead">
+                                <input type="email" class="form-control" id="email1" v-model="lead.email" required="required">
+                                <!--  <input type="email" class="form-control" id="email1" v-model="lead.email" required="required" v-on:change="createLead"> -->
                             </div>
 
                             <div class="form-group">
@@ -93,14 +94,18 @@
                 successMessage: {},
                 successfulCall: false,
                 unsuccessfulCall: false,
-                inserted: false
+                attempted: false
             }
         },
-
+        created () {
+            this.$bus.$on('leadCreated', (lead) => {
+                this.id = lead;
+            })
+        },
         methods: {
             createLead()
             {
-                if (this.inserted === true) {
+                if (this.attempted === true) {
                     this.updateLead(this.lead.id);
                 } else {
                     let uri = 'http://127.0.0.1:8000/leads';
@@ -126,6 +131,20 @@
             updateLead(id)
             {
                 // TODO - If user entered form already, update the lead instead
+                let uri = 'http://127.0.0.1:8000/leads/' + this.id;
+                this.successfulCall = false;
+                this.unsuccessfulCall = false;
+                this.axios
+                    .patch(uri, this.lead)
+                    .then((response) => {
+                        this.successMessage = response.data;
+                        this.successfulCall = true;
+                        this.inserted = true;
+                    })
+                    .catch(error => {
+                        this.errors = error.response.data.errors;
+                        this.unsuccessfulCall = true;
+                    });
             }
         }
     }
